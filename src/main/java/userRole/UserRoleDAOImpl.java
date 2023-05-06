@@ -24,7 +24,12 @@ public class UserRoleDAOImpl implements UserRoleDAO {
 
     @Override
     public UserRole getCityByID(int id) {
-        return null;
+        EntityManager manager = EntityUtil.getEm();
+        manager.getTransaction().begin();
+        UserRole userRole = manager.find(UserRole.class, id);
+        manager.getTransaction().commit();
+        manager.close();
+        return userRole;
     }
 
     @Override
@@ -37,12 +42,13 @@ public class UserRoleDAOImpl implements UserRoleDAO {
     }
 
     @Override
-    public void updateUserRole(UserRole userRole) {
-
-    }
-
-    @Override
     public void deleteUserRole(UserRole userRole) {
+        EntityManager manager = EntityUtil.getEm();
+        manager.getTransaction().begin();
+        UserRole userRole1 = manager.find(UserRole.class, userRole.getId());
+        manager.remove(userRole1);
+        manager.getTransaction().commit();
+        manager.close();
 
     }
 }
