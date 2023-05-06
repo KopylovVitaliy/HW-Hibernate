@@ -2,9 +2,9 @@ package users;
 
 import java.util.List;
 
-public interface UsersDAO {
+public interface UserDAO {
     List<User> getAllCity();
-    User getCityByID(int id);
+    User getUserByID(int id);
     void createUser(User user);
     void updateUser(User user);
     void deleteUser(User user);
