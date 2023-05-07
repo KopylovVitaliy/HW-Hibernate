@@ -18,8 +18,8 @@ import java.util.*;
 @EqualsAndHashCode
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private int id;
 //    @EmbeddedId
 //    private LogPasUser logPasUser;
     @Column(name = "login")
@@ -36,7 +36,7 @@ public class User {
     @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "roles_users",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "user_login"),
             inverseJoinColumns = @JoinColumn(name = "user_role_id")
     )
     private List<UserRole> userRoles;
@@ -51,7 +51,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Пользователь: id: " + id +
+        return "Пользователь: " +
                 ", логин: '" + login + '\'' +
                 ", пароль: '" + password + '\'' +
                 ", Никнейм: '" + userName + '\'' +

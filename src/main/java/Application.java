@@ -1,3 +1,4 @@
+import userRole.UserRole;
 import userRole.UserRoleDAO;
 import userRole.UserRoleDAOImpl;
 import users.User;
@@ -22,7 +23,7 @@ public class Application {
 //        userRoleDAO.createUserRole(userRole5);
 //        userRoleDAO.createUserRole(userRole6);
 //
-//        LogPasUser logPasUser = new LogPasUser("Garry", "12345");
+////        LogPasUser logPasUser = new LogPasUser("Garry", "12345");
 //        User user = new User( "Ron", "Uizly", "1222");
 //        userDAO.createUser(user);
 //        EntityManager manager = EntityUtil.getEm();
@@ -35,7 +36,7 @@ public class Application {
 //        manager.merge(user1);
 //        manager.getTransaction().commit();
 //        manager.close();
-
-        System.out.println(userDAO.getAllUsers());
+        userDAO.updateUserRoles(userDAO.getUserByID("Ron"));
+      userDAO.getAllUsers();
     }
 }
