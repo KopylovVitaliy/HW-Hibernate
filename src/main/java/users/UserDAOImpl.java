@@ -1,4 +1,5 @@
 package users;
+
 import userRole.UserRole;
 import userRole.UserRoleDAO;
 import userRole.UserRoleDAOImpl;
@@ -6,14 +7,17 @@ import userRole.UserRoleDAOImpl;
 import util.EntityUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class UserDAOImpl implements UserDAO {
     Scanner scanner = new Scanner(System.in);
+
     @Override
     public List<User> getAllUsers() {
         List<User> users;
@@ -58,6 +62,7 @@ public class UserDAOImpl implements UserDAO {
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
         user.setPassword(pass);
+        user.setDateMod(LocalDateTime.now());
         manager.merge(user);
         manager.getTransaction().commit();
         manager.close();
@@ -83,10 +88,11 @@ public class UserDAOImpl implements UserDAO {
                 EntityManager manager = EntityUtil.getEm();
                 manager.getTransaction().begin();
                 user.setUserRoles(list);
+                user.setDateMod(LocalDateTime.now());
                 manager.merge(user);
                 manager.getTransaction().commit();
                 manager.close();
-            } else if (x == 2) {
+            } else if (x == 0) {
                 break;
             }
         }
@@ -96,18 +102,14 @@ public class UserDAOImpl implements UserDAO {
     public void deleteUser(User user) {
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
-        User user1 = manager.find(User.class, user);
+        User user1 = manager.find(User.class, user.getLogin());
         manager.remove(user1);
         manager.getTransaction().commit();
         manager.close();
     }
-
     @Override
     public void getUserByRole(UserRole userRole) {
-        EntityManager manager = EntityUtil.getEm();
-        manager.getTransaction().begin();
-        Query query = manager.createQuery(" ");
+        UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
+        System.out.println(userRoleDAO.getUserRoleByID(userRole.getUser_role_id()));
     }
-
-
 }

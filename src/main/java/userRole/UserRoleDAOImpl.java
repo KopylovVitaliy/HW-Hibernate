@@ -2,9 +2,11 @@ package userRole;
 
 import userRole.UserRole;
 import userRole.UserRoleDAO;
+import users.User;
 import util.EntityUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -51,4 +53,6 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         manager.close();
 
     }
+
+
 }

@@ -7,4 +7,5 @@ public interface UserRoleDAO {
     UserRole getUserRoleByID(int id);
     void createUserRole(UserRole userRole);
     void deleteUserRole(UserRole userRole);
+
 }

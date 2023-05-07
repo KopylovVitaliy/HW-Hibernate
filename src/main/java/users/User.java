@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import userRole.UserRole;
 
 import javax.persistence.*;
@@ -16,6 +18,7 @@ import java.util.*;
 @Getter
 @Setter
 @EqualsAndHashCode
+
 public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,12 +36,13 @@ public class User {
     @Column(name = "date_modification")
     private LocalDateTime dateMod = LocalDateTime.now();
 
-    @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE,  fetch = FetchType.LAZY)
     @JoinTable(
             name = "roles_users",
             joinColumns = @JoinColumn(name = "user_login"),
             inverseJoinColumns = @JoinColumn(name = "user_role_id")
     )
+    @Fetch(FetchMode.SUBSELECT)
     private List<UserRole> userRoles;
 
     public User(String login, String password, String userName) {
