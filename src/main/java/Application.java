@@ -26,16 +26,7 @@ public class Application {
 
 //        User user = new User( "Daz", "Bazy", "11234");
 //        userDAO.createUser(user);
-//        EntityManager manager = EntityUtil.getEm();
-//        manager.getTransaction().begin();
-//        User user1 = manager.find(User.class, 1);
-//        List<UserRole> userRoles = new ArrayList<>();
-//        userRoles.add(userRoleDAO.getUserRoleByID(1));
-//        userRoles.add(userRoleDAO.getUserRoleByID(2));
-//        user1.setUserRoles(userRoles);
-//        manager.merge(user1);
-//        manager.getTransaction().commit();
-//        manager.close();
+
         //userDAO.updateUserRoles(userDAO.getUserByID("Dazy"));
 //      userDAO.getAllUsers();
 //        userDAO.getUserByRole(userRoleDAO.getUserRoleByID(4));
