@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserRoleDAOImpl implements UserRoleDAO {
     @Override
-    public List<UserRole> getAllCity() {
+    public List<UserRole> getAllRoles() {
         List<UserRole> userRoles;
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
@@ -23,7 +23,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
     }
 
     @Override
-    public UserRole getCityByID(int id) {
+    public UserRole getUserRoleByID(int id) {
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
         UserRole userRole = manager.find(UserRole.class, id);
@@ -45,7 +45,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
     public void deleteUserRole(UserRole userRole) {
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
-        UserRole userRole1 = manager.find(UserRole.class, userRole.getId());
+        UserRole userRole1 = manager.find(UserRole.class, userRole.getUser_role_id());
         manager.remove(userRole1);
         manager.getTransaction().commit();
         manager.close();

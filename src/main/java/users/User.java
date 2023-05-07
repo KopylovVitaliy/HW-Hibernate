@@ -1,39 +1,62 @@
 package users;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import userRole.UserRole;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class User {
-   // private LocalDateTime localTime = LocalDateTime.now();
-
-    @EmbeddedId
-    private LogPasUser logPasUser;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+//    @EmbeddedId
+//    private LogPasUser logPasUser;
+    @Column(name = "login")
+    private String login;
+    @Column(name = "password")
+    private String password;
     @Column(name = "user_name")
-    private String UserName;
+    private String userName;
     @Column(name = "date_create")
-    private LocalDate dateTime = LocalDate.now();
+    private LocalDateTime dateTime;
     @Column(name = "date_modification")
-    private LocalDate dateMod;
-    @Column(name = "roles")
-    private int UserRoleId;
+    private LocalDateTime dateMod = LocalDateTime.now();
 
-    public User(LogPasUser logPasUser
-            , String userName
-            , int userRoleId) {
-        this.logPasUser = logPasUser;
-        UserName = userName;
-        this.dateTime = dateTime;
-        this.dateMod = dateMod;
-        UserRoleId = userRoleId;
+    @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "roles_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_role_id")
+    )
+    private List<UserRole> userRoles;
+
+    public User(String login, String password, String userName) {
+        this.login = login;
+        this.password = password;
+        this.userName = userName;
+        this.dateTime = LocalDateTime.now();
+        this.dateMod = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Пользователь: id: " + id +
+                ", логин: '" + login + '\'' +
+                ", пароль: '" + password + '\'' +
+                ", Никнейм: '" + userName + '\'' +
+                ", дата создания: " + dateTime +
+                ", дата изменения: " + dateMod +
+                ", роли: " + userRoles;
     }
 }

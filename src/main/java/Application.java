@@ -1,6 +1,5 @@
 import userRole.UserRoleDAO;
 import userRole.UserRoleDAOImpl;
-import users.LogPasUser;
 import users.User;
 import users.UserDAO;
 import users.UserDAOImpl;
@@ -9,9 +8,6 @@ public class Application {
     public static void main(String[] args) {
         UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
         UserDAO userDAO = new UserDAOImpl();
-        LogPasUser logPasUser = new LogPasUser("Garry", "12345");
-        User user = new User(logPasUser, "Potter", 1);
-        userDAO.createUser(user);
 //        UserRole userRole1 = new UserRole("По умолчанию");
 //        UserRole userRole2 = new UserRole("Разработчик");
 //        UserRole userRole3 = new UserRole("Аналитик");
@@ -25,6 +21,21 @@ public class Application {
 //        userRoleDAO.createUserRole(userRole4);
 //        userRoleDAO.createUserRole(userRole5);
 //        userRoleDAO.createUserRole(userRole6);
+//
+//        LogPasUser logPasUser = new LogPasUser("Garry", "12345");
+//        User user = new User( "Ron", "Uizly", "1222");
+//        userDAO.createUser(user);
+//        EntityManager manager = EntityUtil.getEm();
+//        manager.getTransaction().begin();
+//        User user1 = manager.find(User.class, 1);
+//        List<UserRole> userRoles = new ArrayList<>();
+//        userRoles.add(userRoleDAO.getUserRoleByID(1));
+//        userRoles.add(userRoleDAO.getUserRoleByID(2));
+//        user1.setUserRoles(userRoles);
+//        manager.merge(user1);
+//        manager.getTransaction().commit();
+//        manager.close();
 
+        System.out.println(userDAO.getAllUsers());
     }
 }

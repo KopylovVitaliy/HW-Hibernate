@@ -1,12 +1,10 @@
 package userRole;
 
-import userRole.UserRole;
-
 import java.util.List;
 
 public interface UserRoleDAO {
-    List<UserRole> getAllCity();
-    UserRole getCityByID(int id);
+    List<UserRole> getAllRoles();
+    UserRole getUserRoleByID(int id);
     void createUserRole(UserRole userRole);
     void deleteUserRole(UserRole userRole);
 }

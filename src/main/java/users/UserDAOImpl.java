@@ -1,14 +1,18 @@
 package users;
+import userRole.UserRole;
+import userRole.UserRoleDAO;
+import userRole.UserRoleDAOImpl;
 
 import util.EntityUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     @Override
-    public List<User> getAllCity() {
+    public List<User> getAllUsers() {
         List<User> users;
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
@@ -32,9 +36,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void createUser(User user) {
+        UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
+        List<UserRole> userRoles = new ArrayList<>();
+        userRoles.add(userRoleDAO.getUserRoleByID(1));
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
         manager.persist(user);
+        user.setUserRoles(userRoles);
+        manager.merge(user);
         manager.getTransaction().commit();
         manager.close();
     }
