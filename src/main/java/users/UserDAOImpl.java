@@ -12,11 +12,9 @@ import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class UserDAOImpl implements UserDAO {
-    Scanner scanner = new Scanner(System.in);
 
     @Override
     public List<User> getAllUsers() {
@@ -56,12 +54,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUserPass(User user) {
-        System.out.println("Введите новый пароль");
-        String pass = scanner.nextLine();
+    public void updateUserPass(User user, String password) {
         EntityManager manager = EntityUtil.getEm();
         manager.getTransaction().begin();
-        user.setPassword(pass);
+        user.setPassword(password);
         user.setDateMod(LocalDateTime.now());
         manager.merge(user);
         manager.getTransaction().commit();
@@ -69,33 +65,17 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUserRoles(User user) {
+    public void updateUserRoles(User user, Integer num) {
         UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
         List<UserRole> list = new ArrayList<>(user.getUserRoles());
-        while (true) {
-            System.out.println("1 = Добавить роль, 0 = Отмена");
-            Integer x = scanner.nextInt();
-            if (x == 1) {
-                System.out.println("Ведите номер роли");
-                System.out.println("2 = Разработчик");
-                System.out.println("3 = Аналитик ");
-                System.out.println("4 = Тестировщик");
-                System.out.println("5 = Менеджер");
-                System.out.println("6 = Дизайнер");
-                Integer num = scanner.nextInt();
-                list.add(userRoleDAO.getUserRoleByID(num));
-
-                EntityManager manager = EntityUtil.getEm();
-                manager.getTransaction().begin();
-                user.setUserRoles(list);
-                user.setDateMod(LocalDateTime.now());
-                manager.merge(user);
-                manager.getTransaction().commit();
-                manager.close();
-            } else if (x == 0) {
-                break;
-            }
-        }
+        list.add(userRoleDAO.getUserRoleByID(num));
+        EntityManager manager = EntityUtil.getEm();
+        manager.getTransaction().begin();
+        user.setUserRoles(list);
+        user.setDateMod(LocalDateTime.now());
+        manager.merge(user);
+        manager.getTransaction().commit();
+        manager.close();
     }
 
     @Override
@@ -107,6 +87,7 @@ public class UserDAOImpl implements UserDAO {
         manager.getTransaction().commit();
         manager.close();
     }
+
     @Override
     public void getUserByRole(UserRole userRole) {
         UserRoleDAO userRoleDAO = new UserRoleDAOImpl();

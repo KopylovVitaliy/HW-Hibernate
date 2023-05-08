@@ -31,6 +31,7 @@ public class Application {
         userDAO.createUser(user);
         userDAO.createUser(user1);
 
-
+        userDAO.updateUserPass(userDAO.getUserByID("Dazzy"), "Crazy");
+        userDAO.updateUserRoles(userDAO.getUserByID("Dazzy"), 4);
     }
 }
